@@ -1,0 +1,184 @@
+\documentclass[a4paper,12pt,answers,addpoints]{exam}
+
+% Packages:
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb,bm,mathtools}
+%\usepackage{physymb}
+\usepackage{braket}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{afterpage}
+\usepackage{caption}
+\usepackage[makeroom]{cancel}
+\usepackage[hang,nooneline]{subfigure}
+%\usepackage{fancyhdr}
+
+%\pagestyle{fancy}
+%\fancyhf{}
+
+\rfoot{Page \thepage \hspace{1pt} of \numpages}
+% New commands:
+% ============================================================
+\newlength\dlf
+\newcommand\alignedbox[2]{
+	% #1 = before alignment
+	% #2 = after alignment
+	&
+	\begingroup
+	\settowidth\dlf{$\displaystyle #1$}
+	\addtolength\dlf{\fboxsep+\fboxrule}
+	\hspace{-\dlf}
+	\boxed{#1 #2}
+	\endgroup
+}
+\newcommand*{\QEDA}{\hfill\ensuremath{\blacksquare}}%
+\newcounter{fig}
+\newcommand{\lbfig}[1]{\refstepcounter{fig}           .
+	\label{#1} }
+
+%opening
+\title{Introduction to Scientific Computing  \textbf{Fall 2022}}
+\author{}
+
+% Nice commands:
+%\pagestyle{headandfoot}
+\runningheadrule
+\firstpageheader{\textbf{Math 551 Section 02}}{\textbf{\hspace{1.3cm} }}{\textbf{Fall 2022}}
+\runningheader{\textbf{Math 551}}{\textbf{Chapter 1 Homework Set}}
+{Fall 2022}
+
+
+%\thispagestyle{empty}
+
+\begin{document}
+	%\begin{center}
+	%\textsc{\large university of massachusetts amherst\\
+	%department of mathematics and statistics\\
+	%\textbf{Introduction to Scientific Computing}
+	%\\\textbf{Math 551 Section 3}, SPRING 2020
+	%}
+	%\end{center}
+	\begin{center}
+		\textbf{Chapter 1 Homework due Thursday, February 23rd, 2023 at 11:59 PM}\\
+		%\textbf{Solutions}
+	\end{center}
+	%\begin{center}
+	%\includegraphics[height=2.00cm,width=2.00cm]{umass.eps}
+	%\end{center}
+	
+	%\maketitle
+	
+	\begin{center}
+		\fbox{\fbox{\parbox{6in}{
+					\textbf{Notes}: \textit{Try to answer all the questions by demonstrating all the steps of your calculations. %Please put your long answers to each question 1(a), 1(b), 1(c), 2, 3(a), 3(b) and 4 on a different page.
+						Please submit your homework on Gradescope. This homework assignment covers Section 1.1, 1.2 $\&$ 1.3. Answer all the questions by demonstrating all the steps of your calculations.
+						%, and return your answers (including this homework sheet) back to the instructor as a whole package \textbf{stapled}. This homework assignment covers Section 1.1, 1.2 $\&$ 1.3. %Make sure that you copy   your solutions and keep them in a binder so that you may easily reference that when you are studying for an exam.
+		}}}}
+	
+\vspace{0.25in}
+\makebox[\textwidth]{ \textbf{Name (Last, First)}:\enspace\hrulefill\textbf{Student ID \#:}\rule{0.8in}{0.25pt}}
+\end{center}
+\vspace{0.08in}
+\begin{questions}
+
+
+% ---------------------------------------------
+
+
+% Question: 1
+% -------------------------------------------------------------------
+\question Recall Taylor's theorem from Calculus:
+``Assume a function $f(x)$ that has $k+1$ derivatives in an interval 
+$\left[a,b\right]$, or simply, $f\in C^{k+1}\left[a,b\right]$ and 
+$x_{0}\in \left[a,b\right]$. Then, for every $x\in \left[a,b\right]$,
+$\exists\,\xi$ between $x_{0}$ and $x$ such that 
+%
+\begin{equation} 
+f(x) = \underbrace{\sum_{n=0}^{k}\frac{f^{(n)}(x_{0})}{n!}\left(x-x_{0}\right)^{n}}_{P_{k}(x)}%
++ \underbrace{\frac{f^{(k+1)}(\xi)}{(k+1)!}\left(x-x_{0}\right)^{k+1}}_{R_{k}(x)},
+\label{taylor_thm}
+\end{equation}
+%
+where $P_{k}(x)$ is called the $k$th Taylor polynomial for $f$ around $x_{0}$ 
+and $R_{k}(x)$ is called the remainder, or truncation error. Note that 
+$$\lim_{k\to \infty}P_{k}(x)$$ gives the Taylor series for the 
+same function $f$ about $x=x_{0}$ and also a function $f$ is analytic in 
+$\left(a,b\right)$ if the Taylor series equals $f$ for all $x\in\left(a,b\right)$.
+Finally, the Taylor series around $x=x_{0}\equiv 0$ is called MacLaurin series.
+\begin{parts}
+\part (8 points) Find $P_{1}(x)$, $P_{2}(x)$ and $P_{3}(x)$ around $x_{0}=0$ if $f(x)=x^2-4x+3$.
+How $P_{3}(x)$ is related to $f(x)$?
+\part (7 points) Same as part (a) but consider $x_{0}=1$.
+\part (5 points) Given a polynomial $f(x)$ with degree $m$, what can 
+you say about $f(x)-P_{k}(x)$ for $k\ge m$?
+\end{parts}
+
+
+
+% Question: 2
+% -------------------------------------------------------------------
+\question[15] Given the function $f(x)=\cos{x}$, find both $P_{2}(x)$
+and $P_{3}(x)$ about $x_{0}=0$, and use them to approximate
+$\cos{(0.1)}$. Show that in each case the remainder term provides
+an upper bound for the true (absolute) error.
+
+
+% Question: 3
+% -------------------------------------------------------------------
+\question Consider the function $f(x)=e^{x}$.
+%
+\begin{parts}
+\part (10 points) Find the MacLaurin series of the function $f(x)=e^{x}$, 
+i.e., the Taylor series about $x_{0}=0$ (write separately $P_{k}(x)$
+and $R_{k}(x)$),
+\part (10 points) Find a minimum value of $k$ necessary for $P_{k}(x)$ to
+approximate $f(x)$ to within $10^{-6}$ on the interval $[0,0.5]$
+(here, you must use the remainder term).
+\end{parts}
+
+
+% Question: 4
+% -------------------------------------------------------------------
+\question (5 points) Given that
+\[
+R(x)=\dfrac{|x|^6}{6!}e^{\xi},
+\]
+for $x\in\left[-\frac{1}{2}, \frac{1}{2}\right]$, where $\xi$ is between $x$ and $0$, find an upper bound for $|R|$, valid for all $x\in \left[-\frac{1}{2}, \frac{1}{2}\right]$, that is independent of $x$ and $\xi$.
+
+% Question: 5
+% -------------------------------------------------------------------
+
+\question (10 points) Use Taylor’s Theorem to show that
+\[
+(1+x)^{-1}=1-x+x^2+\mathcal{O}(h^3)
+\]
+for some $h>0$ sufficiently small.
+
+
+% Question: 6
+% -------------------------------------------------------------------
+
+\question (10 points) Use Taylor expansions for $f(x\pm h)$ to derive an $\mathcal{O}(h^2)$ accurate approximation to the second derivative $f''(x)$ using $f(x)$ and $f(x\pm h)$. Provide all the details of the error estimate.
+\newline
+\textit{Hint}: Go out as far as the fourth derivative term, and then add the two expansions.
+
+
+	
+% Question: 7
+% -------------------------------------------------------------------
+\question MATLAB
+
+\begin{parts}
+\part (10 points) Using the $m$-file \textit{taylor\_prob3.m}, plot the function $f(x)=e^x$ and its MacLaurin approximations $p_2$, $p_4$ and $p_6$. Run the script and show the graphs.
+\part (10 points) Modify the $m$-file \textit{abs\_errors.m} with initial step-size $h=0.15$ and $N=10$, evaluate and printout the absolute errors.
+
+\end{parts}
+
+
+
+
+\end{questions}
+
+
+\end{document}
